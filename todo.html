@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>to do appliaction</title>
+	<link rel="stylesheet" type="text/css" href="todoreal.css">
+</head>
+<body>
+
+	<div class="main">
+		<h1>TO DO APPLIACTION</h1>
+		<div class="inner">
+			<div class="items">
+				<h2>TO DO APP</h2>
+				<img src="todo.png">
+
+			</div>
+			<div class="input">
+				<label>enter your list items</label>
+				<input type="text" id="bar" placeholder="Enter Your Items....." name="">
+				<button onclick="addItems()">ADD</button>
+			</div>
+			<div class="list">
+				<ul id="uler">
+					<!-- <li>mark</li>
+					<li>mark</li>
+					<li>mark</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		let input = document.getElementById('bar')
+		let list = document.getElementById('uler')
+		function addItems(){
+			if(input.value == ''){
+				alert('please enetr something to add')
+				savedata()
+				storeData()
+			}
+			else{
+				let li = document.createElement('li')
+				li.innerHTML = input.value
+				list.append(li)
+				let span = document.createElement('span')
+				span.innerHTML = '\u00d7'
+				li.append(span)
+				input.value = ''
+				savedata()
+				storeData()
+			}
+
+		}
+
+		list.addEventListener('click',e=>{
+			if(e.target.tagName == 'SPAN'){
+				e.target.parentElement.remove()
+				savedata()
+				storeData()
+			}
+			if(e.target.tagName == 'LI'){
+				if(e.target.style.textDecoration =='line-through'){
+					e.target.style.textDecoration = 'none'
+
+				}else{
+					e.target.style.textDecoration = 'line-through'
+				}
+				savedata()
+				storeData()
+			}
+		})
+		
+
+		function savedata(){
+			localStorage.setItem('data',list.innerHTML)
+		}
+		function storeData(){
+			list.innerHTML = localStorage.getItem('data')
+		}
+		storeData()
+	</script>
+
+</body>
+</html>
